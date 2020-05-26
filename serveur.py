@@ -7,7 +7,12 @@ async def hello(websocket, path):
         receivedMessage = await websocket.recv()
         print("Message reçu : " + receivedMessage)
         for client in clients:
-            await client.send(receivedMessage)
+            try :
+                await client.send(receivedMessage)
+            except asyncio.CancelledError:
+                clients.remove(client)    
+
+
 
 clients = set()
 
