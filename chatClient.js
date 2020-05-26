@@ -14,6 +14,12 @@ buttonEnvoyer.onclick = function(event){
 }
 
 websocket.onmessage = function(event){
-    textAreaToWrite.value += event.data;
+    let userMessage = event.data.substring(0,event.data.indexOf(' '));
+    if(userMessage == nameUser){
+        let textUser = event.data.substring(event.data.indexOf(':')+1);
+        textAreaToWrite.value += "Vous :"+textUser;
+    }else{
+        textAreaToWrite.value += event.data;
+    }
 }
 
